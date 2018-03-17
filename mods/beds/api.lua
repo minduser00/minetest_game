@@ -5,11 +5,10 @@ local function destruct_bed(pos, n)
 	local node = minetest.get_node(pos)
 	local other
 
+	local dir = minetest.facedir_to_dir(node.param2)
 	if n == 2 then
-		local dir = minetest.facedir_to_dir(node.param2)
 		other = vector.subtract(pos, dir)
 	elseif n == 1 then
-		local dir = minetest.facedir_to_dir(node.param2)
 		other = vector.add(pos, dir)
 	end
 
@@ -55,15 +54,16 @@ function beds.register_bed(name, def)
 			end
 
 			local pos
-			if minetest.registered_items[minetest.get_node(under).name].buildable_to then
+			if minetest.registered_items[node.name].buildable_to then
 				pos = under
 			else
 				pos = pointed_thing.above
 			end
 
-			if minetest.is_protected(pos, placer:get_player_name()) and
+			local player_name = placer:get_player_name()
+			if minetest.is_protected(pos, player_name) and
 					not minetest.check_player_privs(placer, "protection_bypass") then
-				minetest.record_protection_violation(pos, placer:get_player_name())
+				minetest.record_protection_violation(pos, player_name)
 				return itemstack
 			end
 
@@ -75,9 +75,9 @@ function beds.register_bed(name, def)
 			local dir = minetest.dir_to_facedir(placer:get_look_dir())
 			local botpos = vector.add(pos, minetest.facedir_to_dir(dir))
 
-			if minetest.is_protected(botpos, placer:get_player_name()) and
+			if minetest.is_protected(botpos, player_name) and
 					not minetest.check_player_privs(placer, "protection_bypass") then
-				minetest.record_protection_violation(botpos, placer:get_player_name())
+				minetest.record_protection_violation(botpos, player_name)
 				return itemstack
 			end
 
@@ -90,7 +90,7 @@ function beds.register_bed(name, def)
 			minetest.set_node(botpos, {name = name .. "_top", param2 = dir})
 
 			if not (creative and creative.is_enabled_for
-					and creative.is_enabled_for(placer:get_player_name())) then
+					and creative.is_enabled_for(player_name)) then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -113,8 +113,9 @@ function beds.register_bed(name, def)
 					not node.param2 == node2.param2 then
 				return false
 			end
-			if minetest.is_protected(p, user:get_player_name()) then
-				minetest.record_protection_violation(p, user:get_player_name())
+			local player_name = user:get_player_name()
+			if minetest.is_protected(p, player_name) then
+				minetest.record_protection_violation(p, player_name)
 				return false
 			end
 			if mode ~= screwdriver.ROTATE_FACE then
@@ -126,8 +127,8 @@ function beds.register_bed(name, def)
 			if not node_def or not node_def.buildable_to then
 				return false
 			end
-			if minetest.is_protected(newp, user:get_player_name()) then
-				minetest.record_protection_violation(newp, user:get_player_name())
+			if minetest.is_protected(newp, player_name) then
+				minetest.record_protection_violation(newp, player_name)
 				return false
 			end
 			node.param2 = new_param2
