@@ -1,4 +1,5 @@
 local pi = math.pi
+      pi = {[0] = pi, pi / 2, 0, -pi / 2}
 local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()
 local enable_respawn = minetest.settings:get_bool("enable_bed_respawn")
@@ -9,16 +10,8 @@ end
 -- Helper functions
 
 local function get_look_yaw(pos)
-	local n = minetest.get_node(pos)
-	if n.param2 == 1 then
-		return pi / 2, n.param2
-	elseif n.param2 == 3 then
-		return -pi / 2, n.param2
-	elseif n.param2 == 0 then
-		return pi, n.param2
-	else
-		return 0, n.param2
-	end
+	local node_param2 = minetest.get_node(pos).param2
+	return pi[node_param2], node_param2
 end
 
 local function is_night_skip_enabled()
@@ -36,8 +29,7 @@ local function check_in_beds(players)
 	end
 
 	for n, player in ipairs(players) do
-		local name = player:get_player_name()
-		if not in_bed[name] then
+		if not in_bed[player:get_player_name()] then
 			return false
 		end
 	end
