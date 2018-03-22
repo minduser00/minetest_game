@@ -35,8 +35,8 @@ function default.grow_sapling(pos)
 	end
 
 	local mg_name = minetest.get_mapgen_setting("mg_name")
-	local node = minetest.get_node(pos)
-	if node.name == "default:sapling" then
+	local node_name = minetest.get_node_name(pos)
+	if node_name == "default:sapling" then
 		minetest.log("action", "A sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		if mg_name == "v6" then
@@ -44,7 +44,7 @@ function default.grow_sapling(pos)
 		else
 			default.grow_new_apple_tree(pos)
 		end
-	elseif node.name == "default:junglesapling" then
+	elseif node_name == "default:junglesapling" then
 		minetest.log("action", "A jungle sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		if mg_name == "v6" then
@@ -52,7 +52,7 @@ function default.grow_sapling(pos)
 		else
 			default.grow_new_jungle_tree(pos)
 		end
-	elseif node.name == "default:pine_sapling" then
+	elseif node_name == "default:pine_sapling" then
 		minetest.log("action", "A pine sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		local snow = is_snow_nearby(pos)
@@ -63,19 +63,19 @@ function default.grow_sapling(pos)
 		else
 			default.grow_new_pine_tree(pos)
 		end
-	elseif node.name == "default:acacia_sapling" then
+	elseif node_name == "default:acacia_sapling" then
 		minetest.log("action", "An acacia sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		default.grow_new_acacia_tree(pos)
-	elseif node.name == "default:aspen_sapling" then
+	elseif node_name == "default:aspen_sapling" then
 		minetest.log("action", "An aspen sapling grows into a tree at "..
 			minetest.pos_to_string(pos))
 		default.grow_new_aspen_tree(pos)
-	elseif node.name == "default:bush_sapling" then
+	elseif node_name == "default:bush_sapling" then
 		minetest.log("action", "A bush sapling grows into a bush at "..
 			minetest.pos_to_string(pos))
 		default.grow_bush(pos)
-	elseif node.name == "default:acacia_bush_sapling" then
+	elseif node_name == "default:acacia_bush_sapling" then
 		minetest.log("action", "An acacia bush sapling grows into a bush at "..
 			minetest.pos_to_string(pos))
 		default.grow_acacia_bush(pos)
