@@ -1,5 +1,5 @@
-Minetest Game [minetest_game]
-=============================
+Fork of Minetest Game [minetest_game]
+=====================================
 The main subgame for the Minetest engine
 ========================================
 
@@ -11,16 +11,10 @@ The Minetest engine can be found in:
 
 Compatibility
 --------------
-The Minetest Game github master HEAD is generally compatible with the github
+This fork of Minetest Game is not compatible with the github
 master HEAD of the Minetest engine.
-
-Additionally, when the Minetest engine is tagged to be a certain version (eg.
-0.4.10), Minetest Game is tagged with the version too.
-
-When stable releases are made, Minetest Game is packaged and made available in
-	http://minetest.net/download
-and in case the repository has grown too much, it may be reset. In that sense,
-this is not a "real" git repository. (Package maintainers please note!)
+From this commint is only compattible with the fork of minetest in:
+	https://github.com/minduser00/minetest/mu-0.4
 
 Licensing
 ---------
