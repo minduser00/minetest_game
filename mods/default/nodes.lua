@@ -531,7 +531,7 @@ minetest.register_node("default:snow", {
 
 	on_construct = function(pos)
 		pos.y = pos.y - 1
-		if minetest.get_node(pos).name == "default:dirt_with_grass" then
+		if minetest.get_node_name(pos) == "default:dirt_with_grass" then
 			minetest.set_node(pos, {name = "default:dirt_with_snow"})
 		end
 	end,
@@ -549,7 +549,7 @@ minetest.register_node("default:snowblock", {
 
 	on_construct = function(pos)
 		pos.y = pos.y - 1
-		if minetest.get_node(pos).name == "default:dirt_with_grass" then
+		if minetest.get_node_name(pos) == "default:dirt_with_grass" then
 			minetest.set_node(pos, {name = "default:dirt_with_snow"})
 		end
 	end,
@@ -1784,7 +1784,7 @@ end
 
 local function chest_lid_obstructed(pos)
 	local above = { x = pos.x, y = pos.y + 1, z = pos.z }
-	local def = minetest.registered_nodes[minetest.get_node(above).name]
+	local def = minetest.registered_nodes[minetest.get_node_name(above)]
 	-- allow ladders, signs, wallmounted things and torches to not obstruct
 	if def.drawtype == "airlike" or
 			def.drawtype == "signlike" or
